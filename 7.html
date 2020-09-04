@@ -1,0 +1,64 @@
+﻿import React,{Component} from "react";
+import ReactDom from "react-dom"; 
+class Hello extends  Component{
+    constructor(props){
+        super(props);
+        console.log('constructor----')
+        this.state = {
+          flag:true,
+          date:'2018-11-23'
+        }
+  
+    }
+    componentWillMount(){
+        console.log('conponentWillMount----')
+    }
+    render(){
+        console.log('render----')
+        let {flag} = this.state
+        return(
+            <div id = "div1">
+                <h2>当前时间为:{this.state.date}</h2>
+                <button onClick={this.handleCdate.bind(this)}>更新时间</button>
+            </div>
+        )
+    }
+    handleCdate(){
+        this.setState({
+            date:'2019-7-28'
+        })
+    }
+    componentDidMount(){
+        console.log('componentDidMount----')
+        console.log(document.getElementById("div1").innerText)
+    }
+    //是否更新
+    shouldComponentUpdate(newProps,newState){
+        console.log('shouldComponentUpdate----')
+        console.log(newProps,newState)
+        if(this.state.date == newState.date){
+            return false
+        }else{
+            return true
+        }
+    }
+    //更新前
+    componentWillUpdate(...rest){
+        console.log('componentWillUpdate----')
+        console.log(rest)
+        console.log(this.state.date)
+    }
+    //更新后
+    componentDidUpdate(...rest){
+        console.log('componentDidUpdate----')
+        console.log(rest)
+    }
+   
+}
+export default Hello;
+ReactDom.render(
+      <Hello/>
+    ,
+    document.getElementById("app")
+)
+
